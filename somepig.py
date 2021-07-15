@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request
+import jwt
 
 app = Flask(__name__)
 
@@ -35,6 +36,18 @@ def getHdrs():
 def whoamI():
 	user = request.environ.get('REMOTE_USER')
 	return f'<h1>{user}</h1>'
+
+@app.route("/bearer")
+def bearer_decode():
+	bearer_token = 'No token found'
+	auth_header = request.headers.get('Authorization')
+	if auth_header and 'Bearer ' in auth_header:
+		bearer_token = auth_header.split(' ')[1]
+		#return f'<h1>{bearer_token}</h1>'
+		payload = jwt.decode(bearer_token, options={'verify_signature': False})
+		hdr = jwt.get_unverified_header(bearer_token)
+		return jsonify({'header': hdr, 'payload': payload})
+	return f'<h1>{bearer_token}</h1>'
 
 if __name__ == "__main__":
 	app.run()
