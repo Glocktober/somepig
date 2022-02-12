@@ -1,0 +1,35 @@
+###
+# Hello World
+GET http://localhost:5000/
+
+###
+# Check for REMOTE_USER
+GET http://localhost:5000/whoami
+
+###
+# Get headers 
+GET http://localhost:5000/hdr
+
+###
+# Get environment variables
+GET http://localhost:5000/env 
+
+
+####
+# Test No bearer token provided
+GET http://localhost:5000/bearer
+
+####
+# Not a bearer token
+GET http://localhost:5000/bearer
+Authorization: my secret authorization
+
+####
+# Expires in 2030 (tokens are not verified)
+GET http://localhost:5000/bearer
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTk2MDIxNjI1MCwiaWF0IjoxNjQ0NjgzNDUwfQ.lJqCPowbj4BGRhnWytqgWfnyQKw5zlz6SQyq9Xx7bv4
+
+####
+# Expired token (tokens are not verified)
+GET http://localhost:5000/bearer
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTY0NDY4MzQ1MSwiaWF0IjoxNjQ0NjgzNDUwfQ.PRJR-nN0vEcbYw8XCmb7whVr3Eb7b8B9rSKAJsXIueM

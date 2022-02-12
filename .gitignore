@@ -1,0 +1,9 @@
+config.py
+__pycache__
+.aws
+dist
+pack
+venv
+.vscode
+*.egg-info
+.cache
